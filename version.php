@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2024112400;
 $plugin->release = 2024112400;
-$plugin->requires = 2020061500;
+$plugin->requires = 2022112800.00; // Moodle 4.1.
 $plugin->component = 'local_support';
 $plugin->maturity = MATURITY_STABLE;
 
