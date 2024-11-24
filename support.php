@@ -22,10 +22,11 @@ require_once("$CFG->libdir/adminlib.php");
 
 admin_externalpage_setup('tool_support_supportpage');
 
-$heading = get_string('support:name', 'local_support');
+$PAGE->requires->js_call_amd('local_support/support_form', 'init');
 
 /** @var renderer|core_renderer $output */
 $output = $PAGE->get_renderer('local_support');
+$heading = get_string('support:name', 'local_support');
 $supportpage = new support_page($output);
 
 $supportpage->process_form();

@@ -74,19 +74,41 @@ class entry_form extends persistent {
     private function define_time_section(): void {
         $mform = $this->_form;
 
+        $supportlevels = [
+            1 => 6,
+            2 => 15,
+            3 => 30,
+            4 => 45,
+        ];
+
         // For each support type add a new header and set of support level fields.
         foreach ([ 'email', 'phone' ] as $type) {
             $mform->addElement('header', "${type}header", get_string("supportform:header$type", 'local_support'));
 
-            for ($i = 1; $i <= 4; $i++) {
-                $elementname = "${type}level$i";
+            foreach ($supportlevels as $level => $minutes) {
+                $elementname = "${type}level$level";
+                $labeldata = [
+                    'level' => $level,
+                    'minutes' => $minutes,
+                ];
 
-                $mform->addElement('text', $elementname, get_string("supportform:level$i", 'local_support'));
+                $mform->addElement(
+                    'text',
+                    $elementname,
+                    get_string("supportform:level", 'local_support', $labeldata),
+                    [
+                        'data-time-element' => '',
+                        'data-minutes' => $minutes,
+                    ]
+                );
                 $mform->setType($elementname, PARAM_INT);
                 $mform->setDefault($elementname, 0);
                 $mform->addRule($elementname, null, 'required', null, 'client');
             }
         }
+
+        $mform->addElement('static', 'totaltime', get_string('supportform:totaltime', 'local_support'));
+        $mform->closeHeaderBefore('totaltime');
     }
 
     /**
