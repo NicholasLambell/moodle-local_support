@@ -14,17 +14,28 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Strings for component 'local_support', language 'en'
- *
- * @package    local_support
- * @copyright  2024 Nicholas Lambell
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+defined('MOODLE_INTERNAL') || die();
 
-// Core
-$string['pluginname'] = 'Support';
+if ($hassiteconfig) {
+    global $ADMIN;
 
-// Settings
-$string['setting:sites'] = 'Site Options';
-$string['setting:sites_desc'] = 'List of sites available for selection in the support form. One per line.';
+    // Add subheader to local plugins section.
+    $ADMIN->add(
+        'localplugins',
+        new admin_category(
+            'support',
+            get_string('pluginname', 'local_support')
+        )
+    );
+
+    // Create the new settings page
+    $settings = new admin_settingpage('local_support', get_string('generalsettings', 'admin'));
+    $ADMIN->add('support', $settings);
+
+    $settings->add(new admin_setting_configtextarea(
+        'local_support/sites',
+        get_string('setting:sites', 'local_support'),
+        get_string('setting:sites_desc', 'local_support'),
+        ''
+    ));
+}
