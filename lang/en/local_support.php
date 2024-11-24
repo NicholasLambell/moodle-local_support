@@ -27,6 +27,20 @@ $string['pluginname'] = 'Support';
 
 // Pages
 $string['support:name'] = 'Support form';
+$string['support:success'] = 'Thank you for submitting your ticket data';
+
+// Forms
+$string['supportform:date'] = 'Select date';
+$string['supportform:headerdetails'] = 'Details';
+$string['supportform:headeremail'] = 'Email Support';
+$string['supportform:headerphone'] = 'Phone Support';
+$string['supportform:level1']= 'Level 1 (6 mins)';
+$string['supportform:level2']= 'Level 2 (15 mins)';
+$string['supportform:level3']= 'Level 3 (30 mins)';
+$string['supportform:level4']= 'Level 4 (45 mins)';
+$string['supportform:name'] = 'Name';
+$string['supportform:site'] = 'Site name';
+$string['supportform:sitenone'] = 'Select site';
 
 // Settings
 $string['setting:sites'] = 'Site Options';
