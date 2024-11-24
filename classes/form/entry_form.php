@@ -38,10 +38,22 @@ class entry_form extends persistent {
      * @return void
      */
     protected function definition(): void {
+        $mform = $this->_form;
+
         $this->define_base_fields();
-        $this->define_time_section();
+
+        $mform->addElement('static', 'timesectionplaceholder');
 
         $this->add_action_buttons(false, get_string('submit'));
+    }
+
+    /**
+     * From definition after data has been set.
+     *
+     * @return void
+     */
+    public function definition_after_data() {
+        $this->define_time_section();
     }
 
     /**
@@ -90,11 +102,6 @@ class entry_form extends persistent {
 
         $mform = $this->_form;
 
-        $renderable = new entry_times_section();
-        $sectionhtml = $OUTPUT->render($renderable);
-
-        $mform->addElement('html', $sectionhtml);
-
         $supportlevels = [
             1 => 6,
             2 => 15,
@@ -103,14 +110,24 @@ class entry_form extends persistent {
         ];
 
         // For each level in each support type add a value handler matching the custom HTML.
+        $fieldvalues = [];
         foreach ([ 'email', 'phone' ] as $type) {
             foreach ($supportlevels as $level => $minutes) {
                 $elementname = "${type}level$level";
 
                 $valuehandler = new value_handler($elementname);
                 $mform->addElement($valuehandler);
+
+                $fieldvalues[$elementname] = $mform->exportValue($elementname);
             }
         }
+
+        $renderable = new entry_times_section($fieldvalues);
+        $sectionhtml = $OUTPUT->render($renderable);
+
+        $sectionelement = $mform->createElement('html', $sectionhtml);
+        $mform->insertElementBefore($sectionelement, 'timesectionplaceholder');
+        $mform->removeElement('timesectionplaceholder');
     }
 
     /**

@@ -30,6 +30,15 @@ use templatable;
  */
 class entry_times_section implements templatable, renderable {
 
+    private array $fieldvalues;
+
+    /**
+     * @param array<string, int> $fieldvalues List of existing field values indexed by field name.
+     */
+    public function __construct(array $fieldvalues) {
+        $this->fieldvalues = $fieldvalues;
+    }
+
     /**
      * Export data for template renderer.
      *
@@ -63,6 +72,7 @@ class entry_times_section implements templatable, renderable {
             $supporttype->levels = [];
 
             foreach ($supportlevels as $level => $minutes) {
+                $fieldname = "${type}level$level";
                 $labeldata = [
                     'level' => $level,
                     'minutes' => $minutes,
@@ -71,7 +81,9 @@ class entry_times_section implements templatable, renderable {
                 $supporttype->levels[] = (object)[
                     'level' => $level,
                     'label' => get_string('supportform:level', 'local_support', $labeldata),
+                    'name' => $fieldname,
                     'minutes' => $minutes,
+                    'value' => $this->fieldvalues[$fieldname] ?? 0,
                 ];
             }
 
