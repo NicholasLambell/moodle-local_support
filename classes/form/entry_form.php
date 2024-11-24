@@ -16,7 +16,7 @@
 
 namespace local_support\form;
 
-use moodleform;
+use core\form\persistent;
 
 /**
  * Support form.
@@ -25,7 +25,9 @@ use moodleform;
  * @copyright  2024 Nicholas Lambell
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class support_form extends moodleform {
+class entry_form extends persistent {
+
+    protected static $persistentclass = 'local_support\persistent\entry';
 
     /**
      * From definition.

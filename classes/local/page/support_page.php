@@ -17,8 +17,9 @@
 namespace local_support\local\page;
 
 use core_renderer;
-use local_support\form\support_form;
+use local_support\form\entry_form;
 use local_support\output\renderer;
+use local_support\persistent\entry;
 use moodleform;
 use stdClass;
 
@@ -53,7 +54,9 @@ class support_page {
      * @return void
      */
     private function init_form(): void {
-        $this->form = new support_form();
+        $customdata = [ 'persistent' => null ];
+
+        $this->form = new entry_form(null, $customdata);
     }
 
     /**
@@ -94,6 +97,7 @@ class support_page {
      * @return void
      */
     private function process_form_data(stdClass $data): void {
-
+        $persistent = new entry(0, $data);
+        $persistent->save();
     }
 }
