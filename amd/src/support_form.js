@@ -2,7 +2,7 @@ import * as Str from 'core/str';
 
 const SELECTORS = {
     TIME_ELEMENT: 'input[data-time-element]',
-    TIME_TOTAL: '#fitem_id_totaltime div.form-control-static',
+    TIME_TOTAL: 'span[data-time-total]',
 };
 
 /**

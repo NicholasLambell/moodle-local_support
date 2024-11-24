@@ -1,0 +1,34 @@
+<style>
+    .support_page__form_wrapper  form .form-group.row {
+        flex-direction: column;
+    }
+
+    .support_page__form_wrapper  form > .form-group:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
+    .support_page__form_wrapper form input[name="name"],
+    .support_page__form_wrapper form select[name="site"] {
+        width: 290px;
+    }
+
+    .support_page__form_wrapper form #fitem_id_submitbutton [data-fieldtype="submit"] {
+        max-width: 100%;
+    }
+
+    .support_page__form_wrapper form input[type="submit"] {
+        width: 100%;
+    }
+
+    @media (min-width: 1024px) {
+        .support_page__form_wrapper {
+            width: 50%;
+        }
+    }
+</style>
+
+<div class="support_page d-flex justify-content-center">
+    <div class="support_page__form_wrapper">
+        {{{form}}}
+    </div>
+</div>

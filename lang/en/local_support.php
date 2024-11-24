@@ -34,6 +34,7 @@ $string['supportform:date'] = 'Select date';
 $string['supportform:headerdetails'] = 'Details';
 $string['supportform:headeremail'] = 'Email Support';
 $string['supportform:headerphone'] = 'Phone Support';
+$string['supportform:headertotaltime'] = 'Total Support Time';
 $string['supportform:level']= 'Level {$a->level} ({$a->minutes} mins)';
 $string['supportform:name'] = 'Name';
 $string['supportform:site'] = 'Site name';

@@ -17,6 +17,9 @@
 namespace local_support\form;
 
 use core\form\persistent;
+use local_support\form\element\value_handler;
+use local_support\output\entry_times_section;
+use stdClass;
 
 /**
  * Support form.
@@ -42,20 +45,31 @@ class entry_form extends persistent {
     }
 
     /**
+     * Define extra validation mechanisms.
+     *
+     * @param stdClass $data Data to validate.
+     * @param array $files Array of files.
+     * @param array $errors Currently reported errors.
+     * @return array List of additional errors, or overridden errors.
+     **/
+    protected function extra_validation($data, $files, array &$errors): array {
+        if ($data->site == -1) {
+            $errors['site'] = get_string('required');
+        }
+
+        return $errors;
+    }
+
+    /**
      * Add base fields to the form.
      *
      * @return void
      */
     private function define_base_fields(): void {
-        global $USER;
-
         $mform = $this->_form;
-
-        $mform->addElement('header', 'detailsheader', get_string('supportform:headerdetails', 'local_support'));
 
         $mform->addElement('text', 'name', get_string('supportform:name', 'local_support'));
         $mform->setType('name', PARAM_TEXT);
-        $mform->setDefault('name', fullname($USER));
         $mform->addRule('name', null, 'required', null, 'client');
 
         $mform->addElement('date_selector', 'date', get_string('supportform:date', 'local_support'));
@@ -72,7 +86,14 @@ class entry_form extends persistent {
      * @return void
      */
     private function define_time_section(): void {
+        global $OUTPUT;
+
         $mform = $this->_form;
+
+        $renderable = new entry_times_section();
+        $sectionhtml = $OUTPUT->render($renderable);
+
+        $mform->addElement('html', $sectionhtml);
 
         $supportlevels = [
             1 => 6,
@@ -81,34 +102,15 @@ class entry_form extends persistent {
             4 => 45,
         ];
 
-        // For each support type add a new header and set of support level fields.
+        // For each level in each support type add a value handler matching the custom HTML.
         foreach ([ 'email', 'phone' ] as $type) {
-            $mform->addElement('header', "${type}header", get_string("supportform:header$type", 'local_support'));
-
             foreach ($supportlevels as $level => $minutes) {
                 $elementname = "${type}level$level";
-                $labeldata = [
-                    'level' => $level,
-                    'minutes' => $minutes,
-                ];
 
-                $mform->addElement(
-                    'text',
-                    $elementname,
-                    get_string("supportform:level", 'local_support', $labeldata),
-                    [
-                        'data-time-element' => '',
-                        'data-minutes' => $minutes,
-                    ]
-                );
-                $mform->setType($elementname, PARAM_INT);
-                $mform->setDefault($elementname, 0);
-                $mform->addRule($elementname, null, 'required', null, 'client');
+                $valuehandler = new value_handler($elementname);
+                $mform->addElement($valuehandler);
             }
         }
-
-        $mform->addElement('static', 'totaltime', get_string('supportform:totaltime', 'local_support'));
-        $mform->closeHeaderBefore('totaltime');
     }
 
     /**
@@ -118,7 +120,7 @@ class entry_form extends persistent {
      */
     private static function site_options(): array {
         $options = [];
-        $options[''] = get_string('supportform:sitenone', 'local_support');
+        $options[-1] = get_string('supportform:sitenone', 'local_support');
 
         $sitesconfig = get_config('local_support', 'sites');
         $siteoptions = explode(PHP_EOL, $sitesconfig);

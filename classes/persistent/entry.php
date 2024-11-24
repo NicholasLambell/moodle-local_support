@@ -26,8 +26,7 @@ class entry extends persistent {
             ],
             'site' => [
                 'type' => PARAM_INT,
-                'null' => NULL_ALLOWED,
-                'default' => null,
+                'default' => -1,
             ],
             'emaillevel1' => [
                 'type' => PARAM_INT,

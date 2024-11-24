@@ -1,0 +1,53 @@
+<div
+    class="d-flex flex-column mt-4"
+    style="gap: 15px;"
+>
+    <div
+        class="d-flex"
+        style="gap: 15px;"
+    >
+        {{#supporttypes}}
+            <div class="flex-grow-1 p-3 pb-4 border rounded">
+                <div class="h4">
+                    <i class="fa {{icon}} mr-1" aria-hidden="true"></i>
+                    <span>{{label}}</span>
+                </div>
+                <div
+                    class="d-flex flex-column"
+                    style="gap: 10px;"
+                >
+                    {{#levels}}
+                        <div>
+                            <label
+                                for="{{type}}level{{level}}"
+                                class="edw-form-label d-inline word-break m-0"
+                            >
+                                {{label}}
+                            </label>
+                            <input
+                                type="text"
+                                name="{{type}}level{{level}}"
+                                value="0"
+                                class="form-control"
+                                required
+                                data-time-element
+                                data-minutes="{{minutes}}"
+                            >
+                        </div>
+                    {{/levels}}
+                </div>
+            </div>
+        {{/supporttypes}}
+    </div>
+
+    <div class="p-3 border rounded">
+        <div class="h4">
+            <i class="fa fa-clock-o mr-1" aria-hidden="true"></i>
+            <span>
+                {{#str}} supportform:headertotaltime, local_support {{/str}}
+            </span>
+        </div>
+
+        <span class="font-weight-bold" data-time-total></span>
+    </div>
+</div>

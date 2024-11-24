@@ -19,6 +19,7 @@ namespace local_support\local\page;
 use core_renderer;
 use local_support\form\entry_form;
 use local_support\output\renderer;
+use local_support\output\support_page_form;
 use local_support\persistent\entry;
 use moodleform;
 use stdClass;
@@ -87,7 +88,9 @@ class support_page {
      * @return void
      */
     public function output_body(): void {
-        $this->form->display();
+        $renderable = new support_page_form($this->form);
+
+        echo $this->renderer->render($renderable);
     }
 
     /**
