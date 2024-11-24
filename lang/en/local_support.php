@@ -39,9 +39,8 @@ $string['supportform:level']= 'Level {$a->level} ({$a->minutes} mins)';
 $string['supportform:name'] = 'Name';
 $string['supportform:site'] = 'Site name';
 $string['supportform:sitenone'] = 'Select site';
-$string['supportform:totaltime'] = 'Total support time';
 $string['supportform:totaltimevalue'] = 'This day you provided {$a} minutes of support';
 
 // Settings
-$string['setting:sites'] = 'Site Options';
+$string['setting:sites'] = 'Site options';
 $string['setting:sites_desc'] = 'List of sites available for selection in the support form. One per line.';
