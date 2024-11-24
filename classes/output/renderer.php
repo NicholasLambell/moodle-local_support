@@ -14,20 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_support\output;
+
+use plugin_renderer_base;
+
 /**
- * Version information.
+ * Renderer for local_support.
  *
  * @package    local_support
  * @copyright  2024 Nicholas Lambell
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class renderer extends plugin_renderer_base {
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2024112401;
-$plugin->release = 2024112401;
-$plugin->requires = 2022112800.00; // Moodle 4.1.
-$plugin->component = 'local_support';
-$plugin->maturity = MATURITY_STABLE;
-
-$plugin->dependencies = [];
+}

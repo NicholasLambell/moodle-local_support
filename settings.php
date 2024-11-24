@@ -38,4 +38,14 @@ if ($hassiteconfig) {
         get_string('setting:sites_desc', 'local_support'),
         ''
     ));
+
+    // Add link to the support form.
+    $ADMIN->add(
+        'support',
+        new admin_externalpage(
+            'tool_support_supportpage',
+            get_string('support:name', 'local_support'),
+            new moodle_url('/local/support/support.php'),
+        )
+    );
 }

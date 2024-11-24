@@ -25,6 +25,9 @@
 // Core
 $string['pluginname'] = 'Support';
 
+// Pages
+$string['support:name'] = 'Support form';
+
 // Settings
 $string['setting:sites'] = 'Site Options';
 $string['setting:sites_desc'] = 'List of sites available for selection in the support form. One per line.';
